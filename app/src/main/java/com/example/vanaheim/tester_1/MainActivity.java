@@ -2,11 +2,18 @@ package com.example.vanaheim.tester_1;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import Controladores.HttpPost;
+import modelos.Usuario;
+import utilidades.SystemUtilities;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }// onOptionsItemSelected(MenuItem item)
-
+/**
+ *                                                                     Metodos de menu principal
+ */
     /**
      * Metodo para usar los textos para cambiar de pagina
      */
@@ -96,6 +105,37 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, MostrarLugares);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    /**
+     *                                                                  Metodos Crear Usuario
+     */
+    /**
+     * conecta con la DB para crear un usuario
+     */
+    public void onClickBotonCrearUsuario(View v){
+        EditText user = (EditText) findViewById(R.id.espacio_crear_nombre);
+        EditText pass = (EditText) findViewById(R.id.espacio_crear_password);
+        EditText mail = (EditText) findViewById(R.id.espacio_crear_email);
+        String URL_GET = "http://192.168.1.36:8080/backend/usuarios";
+        Toast.makeText(this,user.getText().toString() , Toast.LENGTH_LONG).show();
+        Usuario actor = new Usuario(user.getText().toString(), pass.getText().toString(), mail.getText().toString());
+        String actorS = "{\"nombreUser\":\"" + actor.getNombreUser() + "\",\"mailUser\":\"" + actor.getMailUser() + "\",\"contraseñaUser\":\"" + actor.getContrasenaUser() +"\"}";
+        Toast.makeText(this,"hola apreté el boton desde onclick",Toast.LENGTH_LONG).show();
+        try {
+            SystemUtilities su = new SystemUtilities(this.getApplicationContext());
+            if (su.isNetworkAvailable()) {
+                try {
+                    AsyncTask resp = new HttpPost(this.getApplicationContext()).execute(actorS,URL_GET);
+                    Toast.makeText(this, "se agregó a "+actor.getNombreUser(), Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (Exception e) {
+        }
     }
 
 }

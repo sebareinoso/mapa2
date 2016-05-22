@@ -31,8 +31,6 @@ public class MenuPrincipal extends Fragment{
         super.onViewStateRestored(savedInstanceState);
     }
 
-
-
     @Override
     public void onPause() {
         if (br != null) {
@@ -40,4 +38,5 @@ public class MenuPrincipal extends Fragment{
         }
         super.onPause();
     }// onPause()
+
 }

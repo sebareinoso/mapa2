@@ -53,5 +53,6 @@
         android:id="@+id/boton_crear_usuario"
         android:layout_below="@+id/espacio_crear_email"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp" />
+        android:layout_marginTop="51dp"
+        android:onClick="onClickBotonCrearUsuario"/>
 </RelativeLayout>
