@@ -5,8 +5,10 @@
         android:title="Crear Usuario"/>
     <item
         android:id="@+id/menu_main_activity_see"
-        android:title="Ver Lugares"
-        />
+        android:title="Ver Lugares" />
+    <item
+        android:id="@+id/menu_main_activity_map"
+        android:title="Ver Mapa" />
     <item
         android:id="@+id/menu_main_activity_exit"
         android:title="Salir"/>

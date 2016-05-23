@@ -26,4 +26,15 @@
         android:layout_centerHorizontal="true"
         android:onClick="onClickCrearUsuario" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ver Mapa"
+        android:id="@+id/text_ver_mapa"
+        android:onClick="onClickVerMapa"
+        android:layout_marginTop="51dp"
+        android:layout_below="@+id/text_crear_usuario"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

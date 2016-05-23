@@ -2,6 +2,7 @@ package com.example.vanaheim.tester_1;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
                 }
                 break;
+            case R.id.menu_main_activity_map:
+                Intent intent = new Intent(this, MapsActivity.class);
+                startActivity(intent);
+                break;
             case R.id.menu_main_activity_exit:
                 finish();
                 System.exit(0);
@@ -105,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, MostrarLugares);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void onClickVerMapa(View v){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
     /**
