@@ -37,4 +37,15 @@
         android:layout_below="@+id/text_crear_usuario"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Escanear Codigo QR"
+        android:onClick="QrScanner"
+        android:id="@+id/text_escanear_codigo_qr"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/text_ver_mapa"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

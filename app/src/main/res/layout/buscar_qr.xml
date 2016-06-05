@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/crear_usuario">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Escanear codigo QR"
+        android:id="@+id/text_escanear_codigo_qr"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp" /><![CDATA[
+
+
+
+    EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/espacio_crear_email"
+        android:hint="Email"
+        android:layout_below="@+id/espacio_crear_password"
+        android:layout_alignLeft="@+id/espacio_crear_password"
+        android:layout_alignStart="@+id/espacio_crear_password" />
+
+
+
+
+
+    ]]>
+</RelativeLayout>

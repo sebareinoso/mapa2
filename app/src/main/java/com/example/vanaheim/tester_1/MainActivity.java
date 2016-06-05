@@ -1,27 +1,33 @@
 package com.example.vanaheim.tester_1;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.zxing.Result;
+
 import Controladores.HttpPost;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import modelos.Usuario;
 import utilidades.SystemUtilities;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+    private ZXingScannerView mScannerView;
 
     FragmentTransaction transaction;
 
     /**
-     * Método que se ejecuta al momento de crear la actividad, llama al fragmento que muestra una lista de elementos
+     *          Método que se ejecuta al momento de crear la actividad, llama al fragmento que muestra una lista de elementos
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Método que se ejecuta al momento de presionar el botón regresar del teclado
+     *    para pausar la camara
+     */
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //mScannerView.stopCamera();   // Stop camera on pause
+    }
+
+    /**
+     *          Método que se ejecuta al momento de presionar el botón regresar del teclado
      */
     @Override
     public void onBackPressed() {
@@ -45,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }// onBackPressed()
 
     /**
-     * Método que crea el menú superior
+     *                                          Método que crea el menú superior
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }// onCreateOptionsMenu(Menu menu)
 
     /**
-     * Método que escucha los elementos presionados en el menú superior
+     *                                          Método que escucha los elementos presionados en el menú superior
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -71,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
                 if (!(getFragmentManager().findFragmentByTag("isActiveNewItem") != null && getFragmentManager().findFragmentByTag("isActiveNewItem").isVisible())) {
                     transaction = getFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, new MostrarLugares(), "isActiveNewItem");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+                break;
+            case R.id.menu_main_activity_qr:
+                if (!(getFragmentManager().findFragmentByTag("isActiveNewItem") != null && getFragmentManager().findFragmentByTag("isActiveNewItem").isVisible())) {
+                    transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, new EscanearCodigoQR(), "isActiveNewItem");
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
@@ -146,6 +170,42 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
         }
+    }
+
+    /*
+    *                               Metodo para leer codigo QR
+     */
+    @Override
+    public void handleResult(Result rawResult) {
+        // Do something with the result here
+
+        Log.e("handler", rawResult.getText()); // Prints scan results
+        Log.e("handler", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode)
+        if (rawResult.getText().toString().equals("google")){
+            setContentView(R.layout.activity_main);
+            Fragment CrearUsuario = new CrearUsuario();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, CrearUsuario);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        // show the scanner result into dialog box.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Scan Result");
+        builder.setMessage(rawResult.getText());
+        AlertDialog alert1 = builder.create();
+        alert1.show();
+
+       // If you would like to resume scanning, call this method below:
+        // mScannerView.resumeCameraPreview(this);
+    }
+
+    public void QrScanner(View view){
+
+        mScannerView = new ZXingScannerView(this);   // Programmatically initialize the scanner view
+        setContentView(mScannerView);
+        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        mScannerView.startCamera();         // Start camera
     }
 
 }

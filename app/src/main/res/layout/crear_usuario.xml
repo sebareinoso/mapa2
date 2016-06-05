@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Crear nuevo Usuario"
-        android:id="@+id/text_crear_nuevo_usuario"
+        android:id="@+id/text_escanear_codigo_qr"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -17,12 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Name"
         android:ems="10"
         android:id="@+id/espacio_crear_nombre"
-        android:layout_below="@+id/text_crear_nuevo_usuario"
-        android:layout_alignLeft="@+id/text_crear_nuevo_usuario"
-        android:layout_alignStart="@+id/text_crear_nuevo_usuario" />
+        android:layout_below="@+id/text_escanear_codigo_qr"
+        android:layout_alignLeft="@+id/text_escanear_codigo_qr"
+        android:layout_alignStart="@+id/text_escanear_codigo_qr" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/espacio_crear_password"
-        android:text="Password"
+        android:hint="Password"
         android:layout_below="@+id/espacio_crear_nombre"
         android:layout_alignLeft="@+id/espacio_crear_nombre"
         android:layout_alignStart="@+id/espacio_crear_nombre" />
@@ -41,7 +41,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/espacio_crear_email"
-        android:text="Email"
+        android:hint="Email"
         android:layout_below="@+id/espacio_crear_password"
         android:layout_alignLeft="@+id/espacio_crear_password"
         android:layout_alignStart="@+id/espacio_crear_password" />
