@@ -21,6 +21,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import modelos.Usuario;
 import utilidades.SystemUtilities;
 
+import com.example.vanaheim.tester_1.ValorarLugar;
+
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
 

@@ -21,15 +21,18 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.ArrayList;
+
 import Controladores.HttpGet;
+import modelos.Lugar;
 import utilidades.JsonHandler;
 import utilidades.SystemUtilities;
 
-public class ValorarLugar extends Fragment {
+public class ValorarLugar extends ListFragment {
 
     private BroadcastReceiver br = null;
     private final String URL_GET = "http://192.168.1.35:8080/backend-java/publicaciones/";
-    private String[][] actorsList;
+    private ArrayList<Lugar> actorsList;
 
     /**
      * Constructor. Obligatorio para Fragmentos!
@@ -37,25 +40,23 @@ public class ValorarLugar extends Fragment {
     public ValorarLugar() {
     }// ItemList()
 
-    @Nullable
+    /**
+     * Método que se llama una vez que se ha creado la actividad que contiene al fragmento
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.crear_usuario, container, false);
-    }
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }// onActivityCreated(Bundle savedInstanceState)
 
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
 
     /**
      * Método que escucha las pulsaciones en los items de la lista
      */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        String item = "Nombre: "+actorsList[position][0].toString() + " " + actorsList[position][1].toString()+"\n";
-        item = item + "Ultima actualizacion: " + actorsList[position][3]+ "\n";
-        item = item + "ID actor: " + actorsList[position][2]+"\n";
+        String item = "Nombre: "+actorsList.get(position).getNombrePub()+"\n";
+        item = item + "Codigo: " + actorsList.get(position).getCodigoPub()+ "\n";
+        item = item + "Descripcion: " + actorsList.get(position).getDescripcionPub()+"\n";
         Bundle arguments = new Bundle();
         arguments.putString("item", item);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -74,9 +75,9 @@ public class ValorarLugar extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 JsonHandler jh = new JsonHandler();
                 actorsList = jh.getPublicaciones(intent.getStringExtra("data"));
-                String[] actorsNames = new String[actorsList.length];
-                for (int i=0; i<actorsList.length;i++ ){
-                    actorsNames[i]= " " + actorsList[i][0].toString() + " " + actorsList[i][1].toString();
+                String[] actorsNames = new String[actorsList.size()];
+                for (int i=0; i<actorsList.size();i++ ){
+                    actorsNames[i]= " " + actorsList.get(i).getNombrePub();
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity()
                         , android.R.layout.simple_list_item_1, actorsNames);
