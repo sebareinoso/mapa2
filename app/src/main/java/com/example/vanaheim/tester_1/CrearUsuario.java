@@ -1,6 +1,6 @@
 package com.example.vanaheim.tester_1;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 /**
  * Created by Vanaheim on 5/19/2016.
  */
-public class CrearUsuario extends Fragment{
+public class CrearUsuario extends android.support.v4.app.Fragment{
     private BroadcastReceiver br = null;
 
     public CrearUsuario(){
@@ -27,7 +27,16 @@ public class CrearUsuario extends Fragment{
         super.onActivityCreated(savedInstanceState);
     }// onActivityCreated(Bundle savedInstanceState)
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.crear_usuario, container, false);
+    }
 
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
 
     /**
      * Método que se ejecuta luego que el fragmento se detiene

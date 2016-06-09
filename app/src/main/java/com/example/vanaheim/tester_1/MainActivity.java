@@ -1,8 +1,8 @@
 package com.example.vanaheim.tester_1;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        transaction = getFragmentManager().beginTransaction();
+        transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new MenuPrincipal());
         transaction.commit();
     }
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         switch (item.getItemId()) {
             case R.id.menu_main_activity_add:
                 if (!(getFragmentManager().findFragmentByTag("isActiveNewItem") != null && getFragmentManager().findFragmentByTag("isActiveNewItem").isVisible())) {
-                    transaction = getFragmentManager().beginTransaction();
+                    transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, new CrearUsuario(), "isActiveNewItem");
                     transaction.addToBackStack(null);
                     transaction.commit();
@@ -87,15 +87,23 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 break;
             case R.id.menu_main_activity_see:
                 if (!(getFragmentManager().findFragmentByTag("isActiveNewItem") != null && getFragmentManager().findFragmentByTag("isActiveNewItem").isVisible())) {
-                    transaction = getFragmentManager().beginTransaction();
+                    transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, new MostrarLugares(), "isActiveNewItem");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+                break;
+            case R.id.menu_main_valorar:
+                if (!(getFragmentManager().findFragmentByTag("isActiveNewItem") != null && getFragmentManager().findFragmentByTag("isActiveNewItem").isVisible())) {
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, new ValorarLugar(), "isActiveNewItem");
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
                 break;
             case R.id.menu_main_activity_qr:
                 if (!(getFragmentManager().findFragmentByTag("isActiveNewItem") != null && getFragmentManager().findFragmentByTag("isActiveNewItem").isVisible())) {
-                    transaction = getFragmentManager().beginTransaction();
+                    transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragment_container, new EscanearCodigoQR(), "isActiveNewItem");
                     transaction.addToBackStack(null);
                     transaction.commit();
@@ -122,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         /*TextView tv = (TextView)findViewById(R.id.text_ver_lugares);
         tv.setText("Swag");*/
         Fragment CrearUsuario = new CrearUsuario();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, CrearUsuario);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -132,8 +140,17 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         /*TextView tv = (TextView)findViewById(R.id.text_ver_lugares);
         tv.setText("Swag");*/
         Fragment MostrarLugares = new MostrarLugares();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, MostrarLugares);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void onClickValorarLugares(View v){
+        /*TextView tv = (TextView)findViewById(R.id.text_ver_lugares);
+        tv.setText("Swag");*/
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new ValorarLugar());
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -186,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         if (rawResult.getText().toString().equals("google")){
             setContentView(R.layout.activity_main);
             Fragment CrearUsuario = new CrearUsuario();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, CrearUsuario);
             transaction.addToBackStack(null);
             transaction.commit();

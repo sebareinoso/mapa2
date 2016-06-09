@@ -48,6 +48,16 @@ public class ValorarLugar extends ListFragment {
         super.onActivityCreated(savedInstanceState);
     }// onActivityCreated(Bundle savedInstanceState)
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.valorar_lugar, container, false);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
 
     /**
      * Método que escucha las pulsaciones en los items de la lista

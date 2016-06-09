@@ -48,4 +48,15 @@
         android:layout_below="@+id/text_ver_mapa"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Valorar lugares"
+        android:id="@+id/text_valorar_lugares"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/text_escanear_codigo_qr"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickValorarLugares"/>
+
 </RelativeLayout>
