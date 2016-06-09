@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         EditText user = (EditText) findViewById(R.id.espacio_crear_nombre);
         EditText pass = (EditText) findViewById(R.id.espacio_crear_password);
         EditText mail = (EditText) findViewById(R.id.espacio_crear_email);
-        String URL_GET = "http://192.168.1.36:8080/backend/usuarios";
+        String URL_GET = "http://192.168.1.35:8080/backend-java/usuarios";
         Toast.makeText(this,user.getText().toString() , Toast.LENGTH_LONG).show();
         Usuario actor = new Usuario(user.getText().toString(), pass.getText().toString(), mail.getText().toString());
         String actorS = "{\"nombreUser\":\"" + actor.getNombreUser() + "\",\"mailUser\":\"" + actor.getMailUser() + "\",\"contraseñaUser\":\"" + actor.getContrasenaUser() +"\"}";
