@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, MostrarLugares);
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 

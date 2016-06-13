@@ -15,21 +15,13 @@ public class Lugar {
     private BigDecimal lonPub;
     private int sumavalPub;
     private int cantidavalPub;
-    private int pubId;
 
-    public Lugar(String codigoPub, String descripcionPub, String nombrePub, int tipoPub, int valoracionPub, long latitud, long longitud, int pubId) {
+    public Lugar(String codigoPub, String descripcionPub, String nombrePub, int tipoPub, int valoracionPub) {
         this.codigoPub = codigoPub;
         this.descripcionPub = descripcionPub;
         this.nombrePub = nombrePub;
         this.TipoPublicacionPub = tipoPub;
         this.valoracionPub = valoracionPub;
-        this.latPub = new BigDecimal(latitud);
-        this.lonPub = new BigDecimal(longitud);
-        this.pubId = pubId;
-    }
-
-    public int getPubId(){
-        return this.pubId;
     }
 
     public String getNombrePub() {

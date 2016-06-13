@@ -67,13 +67,9 @@ public class ValorarLugar extends ListFragment {
         String item = "Nombre: "+actorsList.get(position).getNombrePub()+"\n";
         item = item + "Codigo: " + actorsList.get(position).getCodigoPub()+ "\n";
         item = item + "Descripcion: " + actorsList.get(position).getDescripcionPub()+"\n";
-        Fragment valorarLugar = new ValorarLugar();
         Bundle arguments = new Bundle();
         arguments.putString("item", item);
-        int id_publicacion = actorsList.get(position).getPubId();
-        arguments.putInt("id", id_publicacion);
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, valorarLugar);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
         transaction.commit();
     }// onListItemClick(ListView l, View v, int position, long id)
@@ -84,7 +80,6 @@ public class ValorarLugar extends ListFragment {
     @Override
     public void onResume() {
         IntentFilter intentFilter = new IntentFilter("httpData");
-
         br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
