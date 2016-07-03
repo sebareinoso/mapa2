@@ -1,17 +1,17 @@
 package com.example.vanaheim.tester_1;
 
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Circle circle = null;
 
     public MapsActivity() {
 
@@ -29,9 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
@@ -47,53 +46,64 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final LatLng localizacion = new LatLng(locale.getLatitude(), locale.getLongitude());
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        Button botonRadio = (Button) findViewById(R.id.radioMetros);
+        botonRadio.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onMapLongClick(LatLng coordenada) {
+            public void onClick(View v) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(localizacion, 20));
 
-                if (coordenada != localizacion){
-                    mMap.addMarker(new MarkerOptions().position(coordenada).title("Nueva localizacion"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenada, 15));
-                }
-            }
-        });
+                Circle circulo = getCirculoMetros();
 
-        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-            @Override
-            public boolean onMyLocationButtonClick() {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(localizacion, 15));
-                Circle circulo = null;
-
-                if (circulo == null){
+                if (circulo == null) {
                     circulo = mMap.addCircle(new CircleOptions()
                             .center(localizacion)
                             .radius(40)
                             .strokeColor(Color.RED)
                             .fillColor(Color.argb(50, 255, 0, 0)));
                     circulo.setVisible(true);
-                    return true;
+                    setCirculoMetros(circulo);
+                } else {
+                    circulo.setVisible(false);
+                    circulo.remove();
+                    setCirculoMetros(null);
                 }
-
-                else{
-                    if (circulo.isVisible()) {
-                        circulo.setVisible(false);
-                        return false;
-                    }
-                    else {
-                        circulo.setVisible(true);
-                        return true;
-                    }
-                }
-
             }
         });
 
-        LatLng usach = new LatLng(-33.4501044,-70.6858881);
-        mMap.addMarker(new MarkerOptions().position(usach).title("Usachita :3"));
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng coordenada) {
 
-        LatLng usach2 = new LatLng(-33.4497262,-70.6877551);
-        mMap.addMarker(new MarkerOptions().position(usach2).title("Info"));
+                if (coordenada != localizacion) {
+                    mMap.addMarker(new MarkerOptions().position(coordenada).title("Nueva localizacion"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenada, 15));
+                }
+            }
+        });
+
+        Double latitudes[] = {-33.4501044, -70.6858881, -33.4497262, -70.6877551};
+
+        for (int i = 0; i < latitudes.length; i = i + 2) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(latitudes[i], latitudes[i + 1]))
+                    .title(Integer.toString(i))
+            );
+        }
+
+        //LatLng usach = new LatLng(-33.4501044,-70.6858881);
+        //mMap.addMarker(new MarkerOptions().position(usach).title("Usachita :3"));
+
+        //LatLng usach2 = new LatLng(-33.4497262,-70.6877551);
+        //mMap.addMarker(new MarkerOptions().position(usach2).title("Info"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(localizacion, 15));
+    }
+
+    public Circle getCirculoMetros() {
+        return this.circle;
+    }
+
+    public void setCirculoMetros(Circle circle) {
+        this.circle = circle;
     }
 }

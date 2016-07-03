@@ -1,9 +1,33 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vanaheim.tester_1.MapsActivity" />
+    tools:context="com.example.vanaheim.tester_1.MapsActivity" >
 
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="oval">
+        <solid android:color="#48b3ff"/>
+        <stroke
+            android:width="2dp"
+            android:color="#444444"/>
+    </shape>
+
+
+    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radioMetros"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:text="40M"
+        android:gravity=""
+        android:layout_weight="1"
+        android:background="#ffff0000"
+        android:textColor="#ff000000"
+        android:clickable="true" />
+
+</RelativeLayout>
